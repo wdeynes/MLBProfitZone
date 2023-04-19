@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <h1>TheShow Card Calculator</h1> 
+
+<style>
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        color: #444;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        max-width: 600px;
+        margin: 30px auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+      }
+      h1 {
+        font-size: 32px;
+        font-weight: 600;
+        text-align: center;
+        margin: 0 0 20px;
+        color: #222;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 500;
+        color: #444;
+      }
+      input[type="number"], input[type="text"] {
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 400;
+        background-color: #f5f5f5;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      input[type="number"]:focus, input[type="text"]:focus {
+        outline: none;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      input[type="submit"] {
+        display: block;
+        margin-top: 20px;
+        background-color: #333;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+      input[type="submit"]:hover {
+        background-color: #222;
+      }
+      p {
+        font-size: 20px;
+        font-weight: 500;
+        margin-top: 30px;
+        color: #444;
+      }
+      span {
+        color: #0f0;
+      }
+      .hidden {
+        display: none;
+      }
+
+</style>
+
+<label for="quantity">Quantity:</label>
+<input type="number" id="quantity" name="quantity" min="1" value="0">
+<br>
+<label for="price">Buy Price:</label>
+<input type="number" id="price" name="price" min="0" step="1" value="0">
+<br>
+<label for="total">Stubs Spent:</label>
+<input type="text" id="total" name="total" readonly>
+<br>
+<label for="saleprice">Sell Price:</label>
+<input type="number" id="saleprice" name="saleprice" min="0" step="1" value="0">
+<br>
+<label for="minus-10-percent">MLBTheShow 10% Fee:</label>
+<input type="text" id="minus-10-percent" name="minus-10-percent" readonly>
+<br>
+<label for="profit">Stubs Recieved:</label>
+<input type="text" id="profit" name="profit" readonly>
+<br>
+<label for="stub-profit">Stub Profit:</label>
+<input type="text" id="stub-profit" name="stub-profit" readonly>
+<br>
+
+
+
+<script>
+
+  const quantityInput = document.getElementById("quantity");
+  const priceInput = document.getElementById("price");
+  const salepriceInput = document.getElementById("saleprice");
+  const totalInput = document.getElementById("total");
+  const minus10Input = document.getElementById("minus-10-percent");
+  const differenceInput = document.getElementById("difference");
+  const saleDifferenceInput = document.getElementById("profit");
+  const stubProfitInput = document.getElementById("stub-profit");
+
+  priceInput.addEventListener("input", calculateTotal);
+  salepriceInput.addEventListener("input", calculateTotal);
+  quantityInput.addEventListener("input", calculateTotal);
+
+
+  function calculateTotal() {
+  const quantity = quantityInput.value;
+  const price = priceInput.value;
+  const saleprice = salepriceInput.value;
+  const total = quantity * price;
+  const minus10 = saleprice * 0.10526315789474;
+  totalInput.value = total.toFixed(0);
+  minus10Input.value = minus10.toFixed(0);
+
+  const profitOrLoss = calculateDifference(saleprice, quantity).toFixed(0);
+  saleDifferenceInput.value = profitOrLoss;
+
+  if (profitOrLoss >= 0) {
+    saleDifferenceInput.style.color = "green";
+  } else {
+    saleDifferenceInput.style.color = "red";
+  }
+
+const stubProfit = profitOrLoss - total;
+stubProfitInput.value = stubProfit.toFixed(0);
+
+if (stubProfit >= 0) {
+  stubProfitInput.style.color = "green";
+} else {
+  stubProfitInput.style.color = "red";
+}
+
+  
+}
+
+function calculateDifference(saleprice, quantity) {
+  return (saleprice * quantity) - (saleprice * quantity * 0.1);
+}
+
+</script>
+
+
+
+
+    </main>
+  <script src="index.js"></script>
+  </body>
+</html>
